@@ -24,14 +24,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/numberTv"
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="7045621807"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     style="@style/DetailedNumTv"
                     android:layout_marginTop="6dp"
                     android:layout_marginBottom="6dp"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_round_phone_2"/>
+                </LinearLayout>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
