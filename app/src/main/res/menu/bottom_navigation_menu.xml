@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/recent"
+        android:title="Recent"
+        android:icon="@drawable/ic_round_phone_2"/>
+    <item android:id="@+id/contacts"
+        android:title="Contacts"
+        android:icon="@drawable/ic_round_contacts_black"/>
+</menu>
