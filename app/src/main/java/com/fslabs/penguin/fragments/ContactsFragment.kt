@@ -16,12 +16,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fslabs.penguin.AppUtils
-import com.fslabs.penguin.Contact
-import com.fslabs.penguin.ContactPlateAdapter
-import com.fslabs.penguin.MainActivity
+import com.fslabs.penguin.models.Contact
+import com.fslabs.penguin.adapters.ContactPlateAdapter
+import com.fslabs.penguin.activities.MainActivity
 import com.fslabs.penguin.databinding.FragmentContactsBinding
-import com.fslabs.penguin.listeners.PermissionGrantedListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async

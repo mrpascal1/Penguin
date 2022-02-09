@@ -1,7 +1,5 @@
 package com.fslabs.penguin.fragments
 
-import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -16,17 +14,18 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fslabs.penguin.AppUtils
-import com.fslabs.penguin.MainActivity
-import com.fslabs.penguin.Recent
-import com.fslabs.penguin.RecentAdapter
+import com.fslabs.penguin.activities.MainActivity
+import com.fslabs.penguin.models.Recent
+import com.fslabs.penguin.adapters.RecentAdapter
 import com.fslabs.penguin.databinding.FragmentRecentBinding
+import com.fslabs.penguin.models.NumberDetailList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class RecentFragment : Fragment() {
@@ -58,6 +57,7 @@ class RecentFragment : Fragment() {
     }
 
     private fun getCallLogs(){
+        val hash = HashMap<String, ArrayList<NumberDetailList>>()
         GlobalScope.launch(Dispatchers.IO){
             val uriCallLogs = Uri.parse("content://call_log/calls")
             val cursorCallLogs = requireContext().contentResolver.query(uriCallLogs, null, null, null, CallLog.Calls.DEFAULT_SORT_ORDER)
@@ -65,8 +65,8 @@ class RecentFragment : Fragment() {
                 while (cursorCallLogs.moveToNext()) {
                     val number = cursorCallLogs.getString(cursorCallLogs.getColumnIndex(CallLog.Calls.NUMBER).toInt())
                     val name = cursorCallLogs.getString(cursorCallLogs.getColumnIndex(CallLog.Calls.CACHED_NAME).toInt())
-                    val time = cursorCallLogs.getString(cursorCallLogs.getColumnIndex(CallLog.Calls.LAST_MODIFIED).toInt())
-                    val modified = Date(TimeUnit.MILLISECONDS.convert(time.toLong(), TimeUnit.SECONDS))
+                    val lastModified = cursorCallLogs.getString(cursorCallLogs.getColumnIndex(CallLog.Calls.DATE).toInt())
+                    val modified = Date(TimeUnit.MILLISECONDS.convert(lastModified.toLong(), TimeUnit.SECONDS))
                     val duration = cursorCallLogs.getString(cursorCallLogs.getColumnIndex(CallLog.Calls.DURATION).toInt())
                     var type = cursorCallLogs.getString(cursorCallLogs.getColumnIndex(CallLog.Calls.TYPE).toInt())
                     when (type.toInt()){
@@ -74,8 +74,21 @@ class RecentFragment : Fragment() {
                         CallLog.Calls.INCOMING_TYPE -> type = "Incoming"
                         CallLog.Calls.MISSED_TYPE -> type = "Missed"
                     }
-                    recentList.add(Recent(name, number, duration, type))
-                    Log.d("TAG",  "$number $name $duration $type $time $modified")
+                    if (name != null) {
+                        if (hash.containsKey(name)) {
+                            hash[name]?.add(NumberDetailList(number, duration))
+                        } else {
+                            hash[name] = arrayListOf(NumberDetailList(number, duration))
+                        }
+                    }else{
+                        if (hash.containsKey(number)) {
+                            hash[number]?.add(NumberDetailList(number, duration))
+                        } else {
+                            hash[number] = arrayListOf(NumberDetailList(number, duration))
+                        }
+                    }
+                    recentList.add(Recent(name, number, hash, type, lastModified))
+                    Log.d("TAG",  "$number $name $duration $type $lastModified $modified")
                 }
             }
             requireActivity().runOnUiThread {

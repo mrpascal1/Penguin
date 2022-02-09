@@ -1,11 +1,12 @@
-package com.fslabs.penguin
+package com.fslabs.penguin.adapters
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.fslabs.penguin.models.Contact
+import com.fslabs.penguin.activities.DetailedProfileActivity
 import com.fslabs.penguin.databinding.LayoutContactPlateBinding
 
 class ContactPlateAdapter(val context: Context): RecyclerView.Adapter<ContactPlateAdapter.MyHolder>(){

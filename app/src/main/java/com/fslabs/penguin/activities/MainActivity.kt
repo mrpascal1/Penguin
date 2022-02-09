@@ -1,27 +1,14 @@
-package com.fslabs.penguin
+package com.fslabs.penguin.activities
 
-import android.content.pm.PackageManager
-import android.database.Cursor
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.fslabs.penguin.R
 import com.fslabs.penguin.databinding.ActivityMainBinding
 import com.fslabs.penguin.fragments.ContactsFragment
 import com.fslabs.penguin.fragments.RecentFragment
 import com.fslabs.penguin.listeners.PermissionGrantedListener
 import kotlinx.coroutines.*
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 
 open class MainActivity : AppCompatActivity() {

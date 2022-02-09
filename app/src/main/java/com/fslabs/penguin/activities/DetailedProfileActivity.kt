@@ -1,17 +1,19 @@
-package com.fslabs.penguin
+package com.fslabs.penguin.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fslabs.penguin.adapters.DetailNumAdapter
 import com.fslabs.penguin.databinding.ActivityDetailedProfileBinding
 
 class DetailedProfileActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityDetailedProfileBinding
-    lateinit var adapter: DetailNumAdapter
+    lateinit var detailNumAdapter: DetailNumAdapter
     var numbers = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +32,15 @@ class DetailedProfileActivity : AppCompatActivity() {
             this.numbers = numbers
         }
         binding.nameTv.text = name
-        adapter = DetailNumAdapter(this)
-        val numberLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        numberLayoutManager.stackFromEnd = false
-        binding.numberRecycler.layoutManager = numberLayoutManager
-        binding.numberRecycler.adapter = adapter
-        if (numbers != null) adapter.setData(numbers)
+        detailNumAdapter = DetailNumAdapter(this)
+        binding.numberRecycler.configure(this)
+        if (numbers != null) detailNumAdapter.setData(numbers)
         Log.d("TAG", "Name: $name Numbers: $numbers")
+    }
+
+    private fun RecyclerView.configure(context: Context){
+        this.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        adapter = detailNumAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

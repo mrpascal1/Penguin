@@ -1,4 +1,4 @@
-package com.fslabs.penguin
+package com.fslabs.penguin.adapters
 
 import android.content.Context
 import android.content.Intent

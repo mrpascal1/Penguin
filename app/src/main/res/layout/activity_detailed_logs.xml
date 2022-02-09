@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.DetailedProfileActivity">
+    tools:context=".activities.DetailedLogsActivity">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -21,11 +22,18 @@
                 style="@style/DetailedNameTv"
                 android:gravity="center"
                 android:layout_marginTop="10dp"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/numberRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_call_now"
+                android:layout_gravity="center"
+                android:layout_marginBottom="12dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/numberRecycler"
+        android:layout_below="@id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

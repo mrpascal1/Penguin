@@ -1,4 +1,4 @@
-package com.fslabs.penguin
+package com.fslabs.penguin.utilities
 
 import android.app.Activity
 import android.content.Context
@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.fslabs.penguin.listeners.PermissionGrantedListener
 
 object AppUtils {
 
@@ -23,7 +22,8 @@ object AppUtils {
     fun notifyFragment(permissions: Array<String>, REQUEST_READ_CONTACTS: Int, context: Context, activity: Activity): Boolean{
         if (checkSelfPermission(permissions[0], REQUEST_READ_CONTACTS, context, activity, permissions) &&
             checkSelfPermission(permissions[1], REQUEST_READ_CONTACTS, context, activity, permissions) &&
-            checkSelfPermission(permissions[2], REQUEST_READ_CONTACTS, context, activity, permissions)){
+            checkSelfPermission(permissions[2], REQUEST_READ_CONTACTS, context, activity, permissions)
+        ){
             //permissionGrantedListener?.onPermissionGranted()
             Log.d("TAG", "Activity perm granted")
             //fetchContacts()
